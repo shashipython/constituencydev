@@ -1,4 +1,5 @@
 import { useLanguage } from "../LanguageContext";
+import { PageHeader } from "../PageHeader";
 
 const slide1 = new URL("../../assets/Slied_1.jpg", import.meta.url).href;
 const slide2 = new URL("../../assets/Slied_2.jpg", import.meta.url).href;
@@ -17,9 +18,11 @@ export function Schemes() {
 
   return (
     <div className="min-h-screen bg-slate-50">
+    <PageHeader/>
       <main className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8 space-y-12">
-        <section className="rounded-3xl bg-white p-8 shadow-lg ring-1 ring-slate-200">
+        <section className="rounded-3xl bg-white p-8 shadow-lg ring-1 ring-slate-200">  
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            
             <div className="space-y-4">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-orange-500">
                 {t("nav.schemes")}

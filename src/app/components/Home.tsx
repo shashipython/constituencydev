@@ -205,7 +205,7 @@ export function Home() {
           <img
             src={slideImages[activeSlide]}
             alt={`Slide ${activeSlide + 1}`}
-            className="w-full h-[320px] object-cover transition duration-700 ease-in-out"
+            className="w-full h-[320px] object-contain object-top bg-slate-100 transition duration-700 ease-in-out"
           />
           <div className="absolute inset-x-0 bottom-0 bg-black/30 px-4 py-3 text-white sm:px-6">
             <div className="flex items-center justify-between text-sm sm:text-base">
