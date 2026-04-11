@@ -1,8 +1,8 @@
 import { PageHeader } from "../PageHeader";
 import { useLanguage } from "../LanguageContext";
-const photoEvent1 = new URL("../../assets/Slied_1.jpg", import.meta.url).href;
-const photoEvent2 = new URL("../../assets/Slied_2.jpg", import.meta.url).href;
-const photoEvent3 = new URL("../../assets/Slied_3.jpg", import.meta.url).href;
+const photoEvent1 = new URL("../../../assets/withlocal_leaders1.jpg", import.meta.url).href;
+const photoEvent2 = new URL("../../../assets/withlocal_leaders2.jpg", import.meta.url).href;
+const photoEvent3 = new URL("../../../assets/withlocal_leaders3.jpg", import.meta.url).href;
 
 // Gallery.tsx
 export function Gallery() {
@@ -28,13 +28,13 @@ export function Gallery() {
 
   const videoEvents = [
     {
-      title: "Youth workshop highlights",
-      youtubeId: "dQw4w9WgXcQ",
+      title: "Birthday celebration for local Leadership",
+      youtubeId: "WAS2zn2SgwM",
       description: "A short overview from the youth skills development workshop.",
     },
     {
-      title: "Local volunteer success story",
-      youtubeId: "9bZkp7q19f0",
+      title: "Interview to social media about development work",
+      youtubeId: "eUEDpsGYnPQ",
       description: "A village volunteer shares how community events are making an impact.",
     },
   ];
