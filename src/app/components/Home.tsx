@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "./LanguageContext";
 const profileImg = new URL("../../assets/VishwasVaidyaMLA2023.jpg", import.meta.url).href;
 const dkShikumarImg = new URL("../../assets/dk_shikumar.jpg", import.meta.url).href;
 const siddharamayyaImg = new URL("../../assets/siddaramaiah-photo.jpg", import.meta.url).href;
@@ -11,12 +12,20 @@ const slideImg4 = new URL("../../assets/Slied_4.jpg", import.meta.url).href;
 import { PageHeader } from "./PageHeader";
 
 export function Home() {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
   const [selectedVillage, setSelectedVillage] = useState<string>("");
   const [villageActivities, setVillageActivities] = useState<{ [key: string]: any[] }>({});
   const [activeSlide, setActiveSlide] = useState<number>(0);
   const slideImages = [slideImg1, slideImg2, slideImg3, slideImg4];
+
+  const activityStatusLabels = {
+    Completed: t("home.activityStatus.completed"),
+    Ongoing: t("home.activityStatus.ongoing"),
+    "In Progress": t("home.activityStatus.inProgress"),
+    Planning: t("home.activityStatus.planning"),
+  };
   
   useEffect(() => {
     const currentUser = localStorage.getItem("currentUser");
@@ -200,7 +209,9 @@ export function Home() {
           />
           <div className="absolute inset-x-0 bottom-0 bg-black/30 px-4 py-3 text-white sm:px-6">
             <div className="flex items-center justify-between text-sm sm:text-base">
-              <span>{`Featured Slide ${activeSlide + 1} of ${slideImages.length}`}</span>
+              <span>{t("home.featuredSlide")
+                .replace("{{current}}", String(activeSlide + 1))
+                .replace("{{total}}", String(slideImages.length))}</span>
               <div className="flex gap-2">
                 {slideImages.map((_, index) => (
                   <span
@@ -227,42 +238,25 @@ export function Home() {
               </div>
               <div className="flex-1">
                 <h2 className="text-4xl mb-2">SHRI VISHWAS VASANT VAIDYA</h2>
-                <p className="text-xl text-orange-100 mb-4">Member of Legislative Assembly (MLA)</p>
-                <p className="text-orange-50">Saundatti Yellamma Constituency | Serving since 2010</p>
+                <p className="text-xl text-orange-100 mb-4">{t("home.role")}</p>
+                <p className="text-orange-50">{t("home.servingSince")}</p>
               </div>
             </div>
           </div>
 
           <div className="p-8">
-            <h3 className="text-2xl mb-4 text-gray-800">Biography</h3>
+            <h3 className="text-2xl mb-4 text-gray-800">{t("home.biographyTitle")}</h3>
             <div className="space-y-4 text-gray-700 leading-relaxed">
-              <p>
-                Shri Vishwas Vasant Vaidya is a dedicated public representative who has been serving the Saundatti Yellamma
-                constituency for over 15 years. Born and raised in the region, he has deep roots in the community and an
-                intimate understanding of the challenges and aspirations of rural Karnataka.
-              </p>
-              <p>
-                After completing his education in law and social work, Shri Vaidya began his career as a social activist,
-                working tirelessly to improve the lives of farmers, women, and marginalized communities. His grassroots work
-                in water conservation, agricultural development, and rural education laid the foundation for his political career.
-              </p>
-              <p>
-                Since his first election in 2010, Shri Vaidya has been a strong advocate for rural development, infrastructure
-                improvement, and social welfare. His initiatives have brought significant improvements to villages across the
-                constituency, including better road connectivity, enhanced healthcare facilities, improved water supply, and
-                expanded educational opportunities.
-              </p>
-              <p>
-                Known for his accessibility and commitment to his constituents, Shri Vaidya regularly visits villages, holds
-                public meetings, and ensures that government schemes reach those who need them most. His vision is to transform
-                Saundatti Yellamma constituency into a model of sustainable rural development.
-              </p>
+              <p>{t("home.bioParagraph1")}</p>
+              <p>{t("home.bioParagraph2")}</p>
+              <p>{t("home.bioParagraph3")}</p>
+              <p>{t("home.bioParagraph4")}</p>
             </div>
           </div>
         </div>
 
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h3 className="text-2xl mb-6 text-gray-800">Major Achievements</h3>
+          <h3 className="text-2xl mb-6 text-gray-800">{t("home.achievementsTitle")}</h3>
           <div className="space-y-6">
             {achievements.map((achievement, index) => (
               <div key={index} className="flex gap-6 border-l-4 border-orange-600 pl-6 py-2">
@@ -281,11 +275,11 @@ export function Home() {
         </div>
 
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <h3 className="text-2xl mb-6 text-gray-800">SAUNDATTI YELLAMMA CONSTITUENCY DEVELOPMENT</h3>
+          <h3 className="text-2xl mb-6 text-gray-800">{t("home.developmentHeading")}</h3>
 
           <div className="mb-6">
             <label htmlFor="village-select" className="block text-lg mb-3 text-gray-700">
-              Select Village to View Development Activities:
+              {t("home.selectVillageLabel")}
             </label>
             <select
               id="village-select"
@@ -293,7 +287,7 @@ export function Home() {
               onChange={(e) => setSelectedVillage(e.target.value)}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-600 focus:border-transparent text-gray-700 bg-white"
             >
-              <option value="">-- Choose a Village --</option>
+              <option value="">{t("home.chooseVillagePlaceholder")}</option>
               {villages.map((village) => (
                 <option key={village} value={village}>
                   {village}
@@ -305,7 +299,7 @@ export function Home() {
           {selectedVillage && (
             <div className="mt-8">
               <h4 className="text-xl mb-4 text-gray-800 border-b-2 border-orange-600 pb-2">
-                Development Activities in {selectedVillage}
+                {t("home.developmentActivitiesTitle")} {selectedVillage}
               </h4>
               <div className="space-y-4 mt-6">
                 {villageActivities[selectedVillage]?.map((activity, index) => (
@@ -316,13 +310,14 @@ export function Home() {
                         activity.status === 'Completed' ? 'bg-green-600 text-white' :
                         activity.status === 'In Progress' ? 'bg-blue-600 text-white' :
                         activity.status === 'Ongoing' ? 'bg-yellow-600 text-white' :
+                        activity.status === 'Planning' ? 'bg-orange-600 text-white' :
                         'bg-gray-600 text-white'
                       }`}>
-                        {activity.status}
+                        {activityStatusLabels[activity.status as keyof typeof activityStatusLabels] ?? activity.status}
                       </span>
                     </div>
                     <p className="text-gray-700 mb-2">{activity.description}</p>
-                    <p className="text-sm text-gray-500">Date: {activity.date}</p>
+                    <p className="text-sm text-gray-500">{t("home.activityDateLabel")}: {activity.date}</p>
                   </div>
                 ))}
               </div>
@@ -331,25 +326,25 @@ export function Home() {
 
           {!selectedVillage && (
             <div className="mt-8 text-center py-12 bg-gray-50 rounded-lg">
-              <p className="text-gray-500 text-lg">Please select a village from the dropdown to view development activities</p>
+              <p className="text-gray-500 text-lg">{t("home.chooseVillageNotice")}</p>
             </div>
           )}
         </div>
 
         <div className="mt-8 bg-orange-50 rounded-lg p-6 border-l-4 border-orange-600">
-          <h3 className="text-lg mb-2 text-gray-800">Current Focus Areas</h3>
+          <h3 className="text-lg mb-2 text-gray-800">{t("home.currentFocusHeading")}</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
             <div className="bg-white p-4 rounded-lg">
-              <h4 className="text-gray-900 mb-2">Rural Infrastructure</h4>
-              <p className="text-sm text-gray-600">Improving road connectivity and basic amenities in all villages</p>
+              <h4 className="text-gray-900 mb-2">{t("home.focusInfrastructure")}</h4>
+              <p className="text-sm text-gray-600">{t("home.focusInfrastructureText")}</p>
             </div>
             <div className="bg-white p-4 rounded-lg">
-              <h4 className="text-gray-900 mb-2">Farmer Welfare</h4>
-              <p className="text-sm text-gray-600">Supporting agricultural growth with modern techniques and subsidies</p>
+              <h4 className="text-gray-900 mb-2">{t("home.focusFarmerWelfare")}</h4>
+              <p className="text-sm text-gray-600">{t("home.focusFarmerWelfareText")}</p>
             </div>
             <div className="bg-white p-4 rounded-lg">
-              <h4 className="text-gray-900 mb-2">Education & Healthcare</h4>
-              <p className="text-sm text-gray-600">Expanding access to quality education and medical facilities</p>
+              <h4 className="text-gray-900 mb-2">{t("home.focusEducationHealthcare")}</h4>
+              <p className="text-sm text-gray-600">{t("home.focusEducationHealthcareText")}</p>
             </div>
           </div>
         </div>
