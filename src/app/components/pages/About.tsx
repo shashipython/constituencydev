@@ -1,5 +1,6 @@
 import { PageHeader } from "../PageHeader";
 import { useLanguage } from "../LanguageContext";
+const profileImage = new URL("../../../assets/VishwasVaidyaMLA2023_3.jpg", import.meta.url).href;
 
 // About.tsx
 export function About() {
@@ -16,9 +17,18 @@ export function About() {
 
         <section className="rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-slate-200">
           <h2 className="text-2xl font-semibold text-slate-900">{t("about.profileTitle")}</h2>
-          <div className="mt-6 space-y-5 text-slate-700">
-            <p className="text-sm leading-7">{t("about.profileText1")}</p>
-            <p className="text-sm leading-7">{t("about.profileText2")}</p>
+          <div className="mt-6 grid gap-8 lg:grid-cols-[1.3fr_0.9fr] items-center text-slate-700">
+            <div className="space-y-5">
+              <p className="text-sm leading-7">{t("about.profileText1")}</p>
+              <p className="text-sm leading-7">{t("about.profileText2")}</p>
+            </div>
+            <div className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200">
+              <img
+                src={profileImage}
+                alt="Vishwas Vaidya MLA"
+                className="h-[420px] w-full object-cover"
+              />
+            </div>
           </div>
         </section>
 
